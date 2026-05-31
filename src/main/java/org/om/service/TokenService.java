@@ -21,6 +21,9 @@ public class TokenService {
     @Inject
     TokenRepository tokenRepository;
 
+    @Inject
+    TokenUtils tokenUtils;
+
     public List<TokenResponseDTO> getAllTokens(){
         return tokenRepository.findAll().stream()
                 .map(TokenMapper::toTokenResponseDTO)
@@ -46,7 +49,7 @@ public class TokenService {
     public void createToken(TokenRequestDTO tokenRequestDTO){
         try{
             Token token = TokenMapper.toToken(tokenRequestDTO);
-            TokenUtils.setTokenDuration(token);
+            tokenUtils.setTokenDuration(token);
             tokenRepository.persist(TokenMapper.toToken(tokenRequestDTO));
         }catch(Exception ex){
             throw new TokenCreationFailedException("failed to create token.");
