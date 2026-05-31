@@ -14,7 +14,7 @@ public class TokenUtils {
     private final String master = "master";
 
 
-    public Token setTokenDuration(Token token) {
+    public static Token setTokenDuration(Token token) {
         String type = token.getType();
 
         switch (type){

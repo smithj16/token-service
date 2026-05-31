@@ -10,6 +10,7 @@ import org.om.exception.TokenRedeemedException;
 import org.om.mapper.TokenMapper;
 import org.om.model.Token;
 import org.om.repository.TokenRepository;
+import org.om.utils.TokenUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,6 +45,8 @@ public class TokenService {
 
     public void createToken(TokenRequestDTO tokenRequestDTO){
         try{
+            Token token = TokenMapper.toToken(tokenRequestDTO);
+            TokenUtils.setTokenDuration(token);
             tokenRepository.persist(TokenMapper.toToken(tokenRequestDTO));
         }catch(Exception ex){
             throw new TokenCreationFailedException("failed to create token.");
