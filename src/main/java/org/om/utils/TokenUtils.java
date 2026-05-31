@@ -1,7 +1,9 @@
 package org.om.utils;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.om.model.Token;
 
+@ApplicationScoped
 public class TokenUtils {
     private final String bronze = "bronze";
 
