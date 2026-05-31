@@ -54,7 +54,7 @@ public class TokenResource {
     }
 
     @GET
-    @Path("{accountId}")
+    @Path("account/{accountId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(summary = "get tokens by account id",
