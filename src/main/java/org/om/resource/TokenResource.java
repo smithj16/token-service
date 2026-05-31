@@ -103,9 +103,9 @@ public class TokenResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    @Operation(summary = "redeem one token",
-            description = "redeem one token")
-    @APIResponse(responseCode = "204", description = "redeem one token",
+    @Operation(summary = "delete one token",
+            description = "delete one token")
+    @APIResponse(responseCode = "204", description = "delete one token",
             content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = TokenResponseDTO.class)
