@@ -12,7 +12,10 @@ import org.om.model.Token;
 import org.om.repository.TokenRepository;
 import org.om.utils.TokenUtils;
 
+import io.quarkus.logging.Log;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +53,29 @@ public class TokenService {
         try{
             Token token = TokenMapper.toToken(tokenRequestDTO);
             tokenUtils.setTokenDuration(token);
-            tokenRepository.persist(TokenMapper.toToken(tokenRequestDTO));
+            tokenRepository.persist(token);
         }catch(Exception ex){
             throw new TokenCreationFailedException("failed to create token.");
         }
+    }
+
+    public void createTokens(List<TokenRequestDTO> tokenRequestList){
+        List<TokenResponseDTO> successful = new ArrayList<>();
+
+        tokenRequestList.stream()
+                .map(TokenMapper::toToken)
+                .map(tokenUtils::setTokenDuration)
+                .forEach(token -> {
+                    try{
+                      tokenRepository.persist(token);
+                      successful.add(TokenMapper.toTokenResponseDTO(token));
+                    }catch(Exception ex){
+                        Log.warn("Skipping invalid token request: " + token.toString() + " - " + ex.getMessage());
+                    }
+                });
+
+        if(successful.isEmpty())
+            throw new TokenCreationFailedException("all token requests failed validation or creation.");
     }
 
     public void redeemToken(Long id){
