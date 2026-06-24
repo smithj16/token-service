@@ -85,6 +85,7 @@ public class TokenResource {
       return RestResponse.ok(tokenService.createToken(tokenRequestDTO));
     }
 
+
     @POST
     @Path("bulk")
     @Transactional
