@@ -73,6 +73,7 @@ public class TokenResource {
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Operation(summary = "create one token",
             description = "create one token")
     @APIResponse(responseCode = "204", description = "create one token",
@@ -80,9 +81,8 @@ public class TokenResource {
                     mediaType = "application/json",
                     schema = @Schema(implementation = TokenResponseDTO.class)
             ))
-    public RestResponse<Void> buyToken(TokenRequestDTO tokenRequestDTO){
-      tokenService.createToken(tokenRequestDTO);
-      return RestResponse.noContent();
+    public RestResponse<Long> buyToken(TokenRequestDTO tokenRequestDTO){
+      return RestResponse.ok(tokenService.createToken(tokenRequestDTO));
     }
 
     @POST

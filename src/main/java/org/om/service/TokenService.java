@@ -49,11 +49,12 @@ public class TokenService {
                 .toList();
     }
 
-    public void createToken(TokenRequestDTO tokenRequestDTO){
+    public Long createToken(TokenRequestDTO tokenRequestDTO){
         try{
             Token token = TokenMapper.toToken(tokenRequestDTO);
             tokenUtils.setTokenDuration(token);
             tokenRepository.persist(token);
+            return tokenRepository.findByAccountId(tokenRequestDTO.getAccountId()).getId();
         }catch(Exception ex){
             throw new TokenCreationFailedException("failed to create token.");
         }
