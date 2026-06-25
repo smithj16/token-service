@@ -13,6 +13,8 @@ import org.om.repository.TokenRepository;
 import org.om.utils.TokenUtils;
 
 import io.quarkus.logging.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class TokenService {
+    private static final Logger log = LoggerFactory.getLogger(TokenService.class);
     @Inject
     TokenRepository tokenRepository;
 
@@ -56,12 +59,13 @@ public class TokenService {
             tokenRepository.persist(token);
             return tokenRepository.findByAccountId(tokenRequestDTO.getAccountId()).getId();
         }catch(Exception ex){
+            Log.error(ex.getMessage());
             throw new TokenCreationFailedException("failed to create token.");
         }
     }
 
-    public void createTokens(List<TokenRequestDTO> tokenRequestList){
-        List<TokenResponseDTO> successful = new ArrayList<>();
+    public List<Long> createTokens(List<TokenRequestDTO> tokenRequestList){
+        List<Long> successful = new ArrayList<>();
 
         tokenRequestList.stream()
                 .map(TokenMapper::toToken)
@@ -69,7 +73,7 @@ public class TokenService {
                 .forEach(token -> {
                     try{
                       tokenRepository.persist(token);
-                      successful.add(TokenMapper.toTokenResponseDTO(token));
+                      successful.add(token.getId());
                     }catch(Exception ex){
                         Log.warn("Skipping invalid token request: " + token.toString() + " - " + ex.getMessage());
                     }
@@ -77,6 +81,8 @@ public class TokenService {
 
         if(successful.isEmpty())
             throw new TokenCreationFailedException("all token requests failed validation or creation.");
+
+        return successful;
     }
 
     public void redeemToken(Long id){

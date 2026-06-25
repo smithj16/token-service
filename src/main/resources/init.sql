@@ -1,4 +1,4 @@
--- Create table if not exists
+-- Create tokens table (idempotent for Docker init)
 CREATE TABLE IF NOT EXISTS tokens (
     id BIGSERIAL PRIMARY KEY,
     accountId VARCHAR(40) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS tokens (
     redeemedAt TIMESTAMP NOT NULL
 );
 
--- Import seed data (19 records) — PostgreSQL assigns IDs 1–19 via BIGSERIAL
+-- Seed data — PostgreSQL auto-assigns IDs 1–19 via BIGSERIAL
 INSERT INTO tokens (accountId, type, duration, createdAt, redeemed, redeemedAt) VALUES
     ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'bronze', 7, '2024-10-15 10:30:00', false, '9999-12-31 23:59:59'),
     ('550e8400-e29b-41d4-a716-446655440000', 'gold', 31, '2024-09-20 14:45:00', false, '9999-12-31 23:59:59'),

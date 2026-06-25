@@ -98,9 +98,8 @@ public class TokenResource {
                     mediaType = "application/json",
                     schema = @Schema(implementation = TokenResponseDTO.class)
             ))
-    public RestResponse<Void> buyTokens(@Valid BulkTokenRequestDTO bulkTokenRequestDTO){
-        tokenService.createTokens(bulkTokenRequestDTO.getTokens());
-        return RestResponse.noContent();
+    public RestResponse<List<Long>> buyTokens(@Valid BulkTokenRequestDTO bulkTokenRequestDTO){
+        return RestResponse.ok(tokenService.createTokens(bulkTokenRequestDTO.getTokens()));
     }
 
 

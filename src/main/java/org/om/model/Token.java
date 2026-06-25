@@ -15,8 +15,7 @@ import java.util.Objects;
 public class Token extends PanacheEntityBase{
 
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "accountId")
@@ -49,7 +48,7 @@ public class Token extends PanacheEntityBase{
     public Token(){
         this.createdAt = LocalDateTime.now();
         this.redeemed = false;
-        this.redeemedAt = LocalDateTime.MAX;
+        this.redeemedAt = LocalDateTime.now();
     }
 
     public Long getId() {
