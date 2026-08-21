@@ -57,7 +57,7 @@ public class TokenService {
             Token token = TokenMapper.toToken(tokenRequestDTO);
             tokenUtils.setTokenDuration(token);
             tokenRepository.persist(token);
-            return tokenRepository.findByAccountId(tokenRequestDTO.getAccountId()).getId();
+            return token.getId();
         }catch(Exception ex){
             Log.error(ex.getMessage());
             throw new TokenCreationFailedException("failed to create token.");
