@@ -41,14 +41,13 @@ public class Token extends PanacheEntityBase{
     @Column(name = "redeemed")
     private boolean redeemed;
 
-    @NotNull
     @Column(name = "redeemedAt")
     private LocalDateTime redeemedAt;
 
     public Token(){
         this.createdAt = LocalDateTime.now();
         this.redeemed = false;
-        this.redeemedAt = LocalDateTime.now();
+        this.redeemedAt = null;
     }
 
     public Long getId() {

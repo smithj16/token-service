@@ -21,7 +21,9 @@ public class TokenMapper {
         tokenResponseDTO.setType(token.getType());
         tokenResponseDTO.setRedeemed(token.isRedeemed());
         tokenResponseDTO.setCreatedAt(token.getCreatedAt().toString());
-        tokenResponseDTO.setRedeemedAt(token.getRedeemedAt().toString());
+        tokenResponseDTO.setRedeemedAt(token.getRedeemedAt() != null 
+            ? token.getRedeemedAt().toString() 
+            : null);
 
         return tokenResponseDTO;
     }

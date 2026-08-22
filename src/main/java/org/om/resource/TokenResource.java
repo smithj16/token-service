@@ -70,6 +70,13 @@ public class TokenResource {
         return RestResponse.ok(tokenService.getTokensByAccountId(accountId));
     }
 
+    @GET
+    @Path("account/{accountId}/unredeemed")
+    @Transactional
+    public RestResponse<List<TokenResponseDTO>> getUnredeemedTokens(String accountId){
+        return RestResponse.ok(tokenService.getUnredeemedTokensByAccountId(accountId));
+    }
+
     @POST
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
@@ -101,14 +108,6 @@ public class TokenResource {
     public RestResponse<List<Long>> buyTokens(@Valid BulkTokenRequestDTO bulkTokenRequestDTO){
         return RestResponse.ok(tokenService.createTokens(bulkTokenRequestDTO.getTokens()));
     }
-
-    @GET
-    @Path("account/{accountId}/unredeemed")
-    @Transactional
-    public RestResponse<List<TokenResponseDTO>> getUnredeemedTokens(String accountId){
-        return RestResponse.ok(tokenService.getUnredeemedTokensByAccountId(accountId));
-    }
-
 
     @PUT
     @Path("{id}")
