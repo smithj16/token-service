@@ -106,4 +106,11 @@ public class TokenService {
 
         tokenRepository.deleteById(id);
     }
+
+    public List<TokenResponseDTO> getUnredeemedTokensByAccountId(String accountId) {
+        return tokenRepository.find("accountId", accountId, "redeemed", false)
+                .stream()
+                .map(TokenMapper::toTokenResponseDTO)
+                .toList();
+    }
 }
