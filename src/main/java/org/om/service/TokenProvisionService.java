@@ -23,7 +23,7 @@ public class TokenProvisionService {
 
     @Transactional
     public void provision(TransactionAcceptedEvent event) {
-        List<Token> existing = tokenRepository.list("transactionId", transactionId);
+        List<Token> existing = tokenRepository.list("transactionId", event.getTransactionId());
         if (!existing.isEmpty()) {
             return; // redelivered event — idempotent skip
         }
