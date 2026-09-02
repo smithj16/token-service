@@ -18,6 +18,7 @@ import org.om.dto.TokenResponseDTO;
 import org.om.service.TokenService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Path("api/tokens")
 @ApplicationScoped
@@ -71,26 +72,27 @@ public class TokenResource {
     }
 
     @GET
+    @Path("transaction/{transactionId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    @Operation(summary = "get tokens by transaction id",
+            description = "get all tokens linked to a transaction")
+    @APIResponse(responseCode = "200", description = "get tokens by transaction id",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = TokenResponseDTO.class)
+            ))
+    public RestResponse<List<TokenResponseDTO>> getTokensByTransactionId(UUID transactionId){
+        return RestResponse.ok(tokenService.getTokensByTransactionId(transactionId));
+    }
+
+    @GET
     @Path("account/{accountId}/unredeemed")
     @Transactional
     public RestResponse<List<TokenResponseDTO>> getUnredeemedTokens(String accountId){
         return RestResponse.ok(tokenService.getUnredeemedTokensByAccountId(accountId));
     }
 
-    @POST
-    @Transactional
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    @Operation(summary = "create one token",
-            description = "create one token")
-    @APIResponse(responseCode = "204", description = "create one token",
-            content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = TokenResponseDTO.class)
-            ))
-    public RestResponse<Long> buyToken(TokenRequestDTO tokenRequestDTO){
-      return RestResponse.ok(tokenService.createToken(tokenRequestDTO));
-    }
 
 
     @POST

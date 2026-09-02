@@ -7,18 +7,20 @@ import org.om.model.Token;
 public class TokenMapper {
 
     public static Token toToken(TokenRequestDTO tokenRequestDTO){
-         Token token = new Token();
-         token.setAccountId(tokenRequestDTO.getAccountId());
-         token.setType(tokenRequestDTO.getType());
-         return token;
+          Token token = new Token();
+          token.setAccountId(tokenRequestDTO.getAccountId());
+          token.setTransactionId(tokenRequestDTO.getTransactionId());
+          token.setTokentier(tokenRequestDTO.getTokentier());
+          return token;
     }
 
     public static TokenResponseDTO toTokenResponseDTO(Token token){
         TokenResponseDTO tokenResponseDTO = new TokenResponseDTO();
         tokenResponseDTO.setId(token.getId());
         tokenResponseDTO.setAccountId(token.getAccountId());
+        tokenResponseDTO.setTransactionId(token.getTransactionId());
         tokenResponseDTO.setDuration(token.getDuration());
-        tokenResponseDTO.setType(token.getType());
+        tokenResponseDTO.setTokentier(token.getTokentier());
         tokenResponseDTO.setRedeemed(token.isRedeemed());
         tokenResponseDTO.setCreatedAt(token.getCreatedAt().toString());
         tokenResponseDTO.setRedeemedAt(token.getRedeemedAt() != null 
