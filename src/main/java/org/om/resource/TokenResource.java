@@ -13,7 +13,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.om.dto.BulkTokenRequestDTO;
-import org.om.dto.TokenRequestDTO;
 import org.om.dto.TokenResponseDTO;
 import org.om.service.TokenService;
 
