@@ -17,9 +17,9 @@ public class TokenUtils {
 
 
     public Token setTokenDuration(Token token) {
-        String type = token.getType();
+        String tokentier = token.getTokentier();
 
-        switch (type){
+        switch (tokentier){
             case bronze:
                 token.setDuration(7);
                 break;

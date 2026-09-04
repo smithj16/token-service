@@ -9,6 +9,7 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tokens")
@@ -23,8 +24,12 @@ public class Token extends PanacheEntityBase{
     private String accountId;
 
     @NotNull
-    @Column(name = "type")
-    private String type;
+    @Column(name = "transactionId", unique = true)
+    private UUID transactionId;
+
+    @NotNull
+    @Column(name = "tokentier")
+    private String tokentier;
 
     @Min(7)
     @Max(365)
@@ -66,12 +71,20 @@ public class Token extends PanacheEntityBase{
         this.accountId = accountId;
     }
 
-    public String getType() {
-        return type;
+    public UUID getTransactionId() {
+        return transactionId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTransactionId(UUID transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTokentier() {
+        return tokentier;
+    }
+
+    public void setTokentier(String tokentier) {
+        this.tokentier = tokentier;
     }
 
     public int getDuration() {
@@ -110,12 +123,12 @@ public class Token extends PanacheEntityBase{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Token token = (Token) o;
-        return duration == token.duration && redeemed == token.redeemed && Objects.equals(id, token.id) && Objects.equals(accountId, token.accountId) && Objects.equals(type, token.type) && Objects.equals(createdAt, token.createdAt) && Objects.equals(redeemedAt, token.redeemedAt);
+        return duration == token.duration && redeemed == token.redeemed && Objects.equals(id, token.id) && Objects.equals(accountId, token.accountId) && Objects.equals(transactionId, token.transactionId) && Objects.equals(tokentier, token.tokentier) && Objects.equals(createdAt, token.createdAt) && Objects.equals(redeemedAt, token.redeemedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountId, type, duration, createdAt, redeemed, redeemedAt);
+        return Objects.hash(id, accountId, transactionId, tokentier, duration, createdAt, redeemed, redeemedAt);
     }
 
     @Override
@@ -123,7 +136,8 @@ public class Token extends PanacheEntityBase{
         return "Token{" +
                 "id=" + id +
                 ", accountId='" + accountId + '\'' +
-                ", type='" + type + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                ", tokentier='" + tokentier + '\'' +
                 ", duration=" + duration +
                 ", createdAt=" + createdAt +
                 ", redeemed=" + redeemed +

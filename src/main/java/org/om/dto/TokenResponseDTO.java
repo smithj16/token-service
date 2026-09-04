@@ -1,9 +1,12 @@
 package org.om.dto;
 
+import java.util.UUID;
+
 public class TokenResponseDTO {
     private Long id;
     private String accountId;
-    private String type;
+    private UUID transactionId;
+    private String tokentier;
     private int duration;
     private boolean redeemed;
     private String createdAt;
@@ -25,12 +28,20 @@ public class TokenResponseDTO {
         this.accountId = accountId;
     }
 
-    public String getType() {
-        return type;
+    public UUID getTransactionId() {
+        return transactionId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTransactionId(UUID transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTokentier() {
+        return tokentier;
+    }
+
+    public void setTokentier(String tokentier) {
+        this.tokentier = tokentier;
     }
 
     public int getDuration() {

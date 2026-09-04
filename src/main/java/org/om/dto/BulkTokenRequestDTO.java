@@ -2,12 +2,12 @@ package org.om.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import org.om.validation.ValidationGroups;
 
 import java.util.List;
 
 public class BulkTokenRequestDTO {
-    @NotEmpty(message = "token list must not be empty")
-    @Valid
+    @NotEmpty(groups = {ValidationGroups.Create.class}, message = "token list must not be empty")
     private List<TokenRequestDTO> tokens;
 
     public List<TokenRequestDTO> getTokens() {

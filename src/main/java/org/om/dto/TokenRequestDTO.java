@@ -3,12 +3,17 @@ package org.om.dto;
 import jakarta.validation.constraints.NotBlank;
 import org.om.validation.ValidationGroups;
 
+import java.util.UUID;
+
 public class TokenRequestDTO {
     @NotBlank(groups = ValidationGroups.Create.class, message = "account id is required")
     private String accountId;
 
-    @NotBlank(groups = ValidationGroups.Create.class)
-    private String type;
+    @NotBlank(groups = ValidationGroups.Create.class, message = "transaction id is required")
+    private UUID transactionId;
+
+    @NotBlank(groups = ValidationGroups.Create.class, message = "tokentier is required")
+    private String tokentier;
 
     public String getAccountId() {
         return accountId;
@@ -18,12 +23,20 @@ public class TokenRequestDTO {
         this.accountId = accountId;
     }
 
-    public String getType() {
-        return type;
+    public UUID getTransactionId() {
+        return transactionId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTransactionId(UUID transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getTokentier() {
+        return tokentier;
+    }
+
+    public void setTokentier(String tokentier) {
+        this.tokentier = tokentier;
     }
 
 
@@ -31,7 +44,8 @@ public class TokenRequestDTO {
     public String toString() {
         return "TokenRequestDTO{" +
                 "accountId='" + accountId + '\'' +
-                ", type='" + type + '\'' +
+                ", transactionId=" + transactionId + '\'' +
+                ", tokentier='" + tokentier + '\'' +
                 '}';
     }
 }

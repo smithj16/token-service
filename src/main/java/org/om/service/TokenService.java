@@ -13,17 +13,15 @@ import org.om.repository.TokenRepository;
 import org.om.utils.TokenUtils;
 
 import io.quarkus.logging.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @ApplicationScoped
 public class TokenService {
-    private static final Logger log = LoggerFactory.getLogger(TokenService.class);
     @Inject
     TokenRepository tokenRepository;
 
@@ -52,17 +50,13 @@ public class TokenService {
                 .toList();
     }
 
-    public Long createToken(TokenRequestDTO tokenRequestDTO){
-        try{
-            Token token = TokenMapper.toToken(tokenRequestDTO);
-            tokenUtils.setTokenDuration(token);
-            tokenRepository.persist(token);
-            return token.getId();
-        }catch(Exception ex){
-            Log.error(ex.getMessage());
-            throw new TokenCreationFailedException("failed to create token.");
-        }
+    public List<TokenResponseDTO> getTokensByTransactionId(UUID transactionId){
+        return tokenRepository.find("transactionId", transactionId)
+                .stream()
+                .map(TokenMapper::toTokenResponseDTO)
+                .toList();
     }
+
 
     public List<Long> createTokens(List<TokenRequestDTO> tokenRequestList){
         List<Long> successful = new ArrayList<>();
