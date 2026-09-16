@@ -1,6 +1,5 @@
 package org.om.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.om.validation.ValidationGroups;
 

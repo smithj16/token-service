@@ -21,6 +21,7 @@ public class TokenMapper {
         tokenResponseDTO.setTransactionId(token.getTransactionId());
         tokenResponseDTO.setDuration(token.getDuration());
         tokenResponseDTO.setTokentier(token.getTokentier());
+        tokenResponseDTO.setQuantity(token.getQuantity());
         tokenResponseDTO.setRedeemed(token.isRedeemed());
         tokenResponseDTO.setCreatedAt(token.getCreatedAt().toString());
         tokenResponseDTO.setRedeemedAt(token.getRedeemedAt() != null 

@@ -30,7 +30,7 @@ public class TokenProvisionConsumer {
             }
 
             tokenProvisionService.provision(event);
-            Log.info("Token provisioned for transactionId: " + event.getTransactionId());
+            Log.info("Token provisioned for transactionId: " + event.getTransactionId() + ", eventId: " + event.getEventId());
         } catch (JsonProcessingException e) {
             Log.error("Failed to deserialize transaction event payload", e);
             throw new TokenCreationFailedException(e.toString());

@@ -7,6 +7,7 @@ public class TokenResponseDTO {
     private String accountId;
     private UUID transactionId;
     private String tokentier;
+    private int quantity;
     private int duration;
     private boolean redeemed;
     private String createdAt;
@@ -42,6 +43,14 @@ public class TokenResponseDTO {
 
     public void setTokentier(String tokentier) {
         this.tokentier = tokentier;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getDuration() {

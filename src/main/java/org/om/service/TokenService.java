@@ -80,16 +80,19 @@ public class TokenService {
     }
 
     public void redeemToken(Long id){
-        Optional<Token> optionalToken = tokenRepository.findByIdOptional(id);
-        if(optionalToken.isEmpty())
-            throw new TokenRecordNotFoundException("token with the id: " + id + " not found.");
+        Token token = tokenRepository.findByIdOptional(id)
+                .orElseThrow(() -> new TokenRecordNotFoundException("token with the id: " + id + " not found."));
 
-        if(optionalToken.get().isRedeemed())
-            throw new TokenRedeemedException("token with the id: " + id + " could not be redeem.");
+        if (token.getQuantity() <= 0)
+            throw new TokenRedeemedException("all tokens for this tier have been redeemed.");
 
-        Token token = optionalToken.get();
-        token.setRedeemed(true);
-        token.setRedeemedAt(LocalDateTime.now());
+        token.setQuantity(token.getQuantity() - 1);
+        
+        if (token.getQuantity() == 0) {
+            token.setRedeemed(true);
+            token.setRedeemedAt(LocalDateTime.now());
+        }
+        
         tokenRepository.persist(token);
     }
 
@@ -102,7 +105,7 @@ public class TokenService {
     }
 
     public List<TokenResponseDTO> getUnredeemedTokensByAccountId(String accountId) {
-        return tokenRepository.find("accountId", accountId, "redeemed", false)
+        return tokenRepository.find("accountId = ?1 AND quantity > 0", accountId)
                 .stream()
                 .map(TokenMapper::toTokenResponseDTO)
                 .toList();

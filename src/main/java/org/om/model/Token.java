@@ -24,12 +24,17 @@ public class Token extends PanacheEntityBase{
     private String accountId;
 
     @NotNull
-    @Column(name = "transactionId", unique = true)
+    @Column(name = "transactionId")
     private UUID transactionId;
 
     @NotNull
     @Column(name = "tokentier")
     private String tokentier;
+
+    @Min(1)
+    @NotNull
+    @Column(name = "quantity")
+    private int quantity;
 
     @Min(7)
     @Max(365)
@@ -87,6 +92,14 @@ public class Token extends PanacheEntityBase{
         this.tokentier = tokentier;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -123,12 +136,12 @@ public class Token extends PanacheEntityBase{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Token token = (Token) o;
-        return duration == token.duration && redeemed == token.redeemed && Objects.equals(id, token.id) && Objects.equals(accountId, token.accountId) && Objects.equals(transactionId, token.transactionId) && Objects.equals(tokentier, token.tokentier) && Objects.equals(createdAt, token.createdAt) && Objects.equals(redeemedAt, token.redeemedAt);
+        return duration == token.duration && redeemed == token.redeemed && quantity == token.quantity && Objects.equals(id, token.id) && Objects.equals(accountId, token.accountId) && Objects.equals(transactionId, token.transactionId) && Objects.equals(tokentier, token.tokentier) && Objects.equals(createdAt, token.createdAt) && Objects.equals(redeemedAt, token.redeemedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountId, transactionId, tokentier, duration, createdAt, redeemed, redeemedAt);
+        return Objects.hash(id, accountId, transactionId, tokentier, quantity, duration, createdAt, redeemed, redeemedAt);
     }
 
     @Override
@@ -138,6 +151,7 @@ public class Token extends PanacheEntityBase{
                 ", accountId='" + accountId + '\'' +
                 ", transactionId='" + transactionId + '\'' +
                 ", tokentier='" + tokentier + '\'' +
+                ", quantity=" + quantity +
                 ", duration=" + duration +
                 ", createdAt=" + createdAt +
                 ", redeemed=" + redeemed +

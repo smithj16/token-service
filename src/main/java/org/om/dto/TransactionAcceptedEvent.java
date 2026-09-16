@@ -6,9 +6,10 @@ import java.util.UUID;
 public class TransactionAcceptedEvent {
 
     private String eventType;
+    private UUID eventId;
     private UUID transactionId;
     private String accountId;
-    private String tokentier;
+    private TokenTierData tokenTier;
     private LocalDateTime occurredAt;
 
     public TransactionAcceptedEvent() {
@@ -20,6 +21,14 @@ public class TransactionAcceptedEvent {
 
     public void setEventType(String eventType) {
         this.eventType = eventType;
+    }
+
+    public UUID getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(UUID eventId) {
+        this.eventId = eventId;
     }
 
     public UUID getTransactionId() {
@@ -38,12 +47,12 @@ public class TransactionAcceptedEvent {
         this.accountId = accountId;
     }
 
-    public String getTokentier() {
-        return tokentier;
+    public TokenTierData getTokenTier() {
+        return tokenTier;
     }
 
-    public void setTokentier(String tokentier) {
-        this.tokentier = tokentier;
+    public void setTokenTier(TokenTierData tokenTier) {
+        this.tokenTier = tokenTier;
     }
 
     public LocalDateTime getOccurredAt() {
@@ -58,9 +67,10 @@ public class TransactionAcceptedEvent {
     public String toString() {
         return "TransactionAcceptedEvent{" +
                 "eventType='" + eventType + '\'' +
+                ", eventId=" + eventId +
                 ", transactionId=" + transactionId +
                 ", accountId='" + accountId + '\'' +
-                ", tokentier='" + tokentier + '\'' +
+                ", tokenTier=" + tokenTier +
                 ", occurredAt=" + occurredAt +
                 '}';
     }
