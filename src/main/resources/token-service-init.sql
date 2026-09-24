@@ -13,6 +13,13 @@ CREATE TABLE IF NOT EXISTS tokens (
 
 CREATE UNIQUE INDEX IF NOT EXISTS uq_tokens_transaction_tier ON tokens(transactionId, tokentier);
 
+CREATE TABLE IF NOT EXISTS token_redemptions (
+    id BIGSERIAL PRIMARY KEY,
+    token_id BIGINT NOT NULL,
+    event_id UUID NOT NULL UNIQUE,
+    redeemed_at TIMESTAMP DEFAULT NOW()
+);
+
 -- Tokens 1-10 are linked to the seeded transactions (see transaction-service seed data); tokens 11-19 are standalone
 INSERT INTO tokens (id, accountId, transactionId, tokentier, quantity, duration, createdAt, redeemed, redeemedAt)
 VALUES (1, 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d', 'bronze', 1, 7, '2024-10-15 10:30:00', false, NULL);

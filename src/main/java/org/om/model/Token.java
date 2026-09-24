@@ -31,7 +31,7 @@ public class Token extends PanacheEntityBase{
     @Column(name = "tokentier")
     private String tokentier;
 
-    @Min(1)
+    @Min(0)
     @NotNull
     @Column(name = "quantity")
     private int quantity;

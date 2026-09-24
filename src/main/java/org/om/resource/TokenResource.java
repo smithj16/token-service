@@ -110,6 +110,7 @@ public class TokenResource {
         return RestResponse.ok(tokenService.createTokens(bulkTokenRequestDTO.getTokens()));
     }
 
+    // Manual redemption endpoint — not used by saga. Saga uses Kafka "event-created" channel.
     @PUT
     @Path("{id}")
     @Transactional
