@@ -29,6 +29,7 @@ public class TokenProvisionConsumer {
                 return;
             }
 
+            Log.info("Processing event for accountId: ," + event.getAccountId() + "and transactionId: " +  event.getTransactionId());
             tokenProvisionService.provision(event);
             Log.info("Token provisioned for transactionId: " + event.getTransactionId() + ", eventId: " + event.getEventId());
         } catch (JsonProcessingException e) {

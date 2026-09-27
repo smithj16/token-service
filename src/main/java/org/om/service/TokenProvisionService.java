@@ -26,6 +26,8 @@ public class TokenProvisionService {
         Log.info("Received event: " + event);
         TokenTierData tokenTier = event.getTokenTier();
 
+        Log.info("Provisioning tokens for " + event.getAccountId() + "tier: " + tokenTier.getTokenTier() + " quantity: " + tokenTier.getQuantity());
+
         provisionToken(event, tokenTier);
     }
 
@@ -52,7 +54,9 @@ public class TokenProvisionService {
 
         Log.info(token);
         tokenUtils.setTokenDuration(token);
+        Log.info("Token duration set to " + token.getDuration() +  " days for tier: " + token.getTokentier());
         tokenRepository.persist(token);
+        Log.info("Token persisted for accountId: " + event.getAccountId() + "for transaction: " + event.getTransactionId());
     }
 
 }
