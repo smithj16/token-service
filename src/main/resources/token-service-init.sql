@@ -77,3 +77,6 @@ VALUES (18, '6ba7b810-9dad-11d1-80b4-00c04fd430c8', 'f8a9b0c1-d2e3-4f4a-5b6c-7d8
 
 INSERT INTO tokens (id, accountId, transactionId, tokentier, quantity, duration, createdAt, redeemed, redeemedAt)
 VALUES (19, '6ba7b811-9dad-11d1-80b4-00c04fd430c8', 'a9b0c1d2-e3f4-4a5b-6c7d-8e9f0a1b2c3d', 'master', 1, 365, '2024-11-01 16:20:00', false, NULL);
+
+-- Reset sequence to match seed data (prevents duplicate key errors when Hibernate generates new IDs)
+SELECT setval('tokens_id_seq', (SELECT MAX(id) FROM tokens));
